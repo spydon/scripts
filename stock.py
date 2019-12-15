@@ -24,30 +24,26 @@ mark = '-' * 64
 
 
 def defaultapi(ticker):
-    tick = YF(ticker)
     #print(tick.get_summary_data())
     #print(mark)
     #print(tick.get_stock_quote_type_data())
     #print(mark)
     #print(tick.get_stock_price_data())
     #print(mark)
-    print("DIGN:", tick.get_current_price())
     #print(mark)
     #print(tick.get_dividend_rate())
-    #try:
-    #    r = tick._cache.keys()
-    #except AttributeError:
-    #    pass
-    #else:
-        #print(mark)
-        #print(r)
+    try:
+        tick = YF(ticker)
+        print("DIGN:", tick.get_current_price())
+    except:
+        print("DIGN: -")
+        pass
 
 
 def customapi(queries, ts):
     yf = YF(ts[0] if 1 == len(ts) else ts)
     for q in queries:
         print('%s:' % (q,))
-        timeit(lambda: print(getattr(yf, q)()))
 
 
 def helpapi(queries):
@@ -60,16 +56,6 @@ def helpapi(queries):
                 print(pydoc.render_doc(YF, "Help on %s"))
             elif q not in HELP_ARGS:
                 print(pydoc.render_doc(getattr(YF, q), "Help on %s"))
-
-
-def timeit(f, *args):
-    print(mark)
-    st = time.time()
-    f(*args)
-    et = time.time()
-    print(mark)
-    print(et - st, 'seconds')
-
 
 
 if __name__ == '__main__':
@@ -85,4 +71,3 @@ if __name__ == '__main__':
         customapi(queries, ts)
     else:
         defaultapi(ts[0])
-        #timeit(defaultapi, ts[0] if 1 == len(ts) else ts)
