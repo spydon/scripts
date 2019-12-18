@@ -8,6 +8,8 @@
     yf and -h: show apis
     api name(s) and -h: show help for that api
     -h or --help: show usage
+
+Needs yahoofinancials and beautifulsoup installed
 """
 
 from __future__ import print_function
